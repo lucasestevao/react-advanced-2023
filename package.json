@@ -2,6 +2,14 @@
   "name": "react-advanced-csp",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x",
+    "yarn": "1.x"
+  },
+  "volta": {
+    "node": "20.7.0",
+    "yarn": "1.22.19"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
