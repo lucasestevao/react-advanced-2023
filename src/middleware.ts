@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-  const isDev = process.env.NODE_ENV !== "production";
+  const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+  const isDev = process.env.NODE_ENV !== 'production'
 
   const cspHeader = `
     default-src 'self';
@@ -20,25 +20,25 @@ export function middleware(request: NextRequest) {
     frame-ancestors 'none';
     ${
       isDev
-        ? ""
+        ? ''
         : `
     block-all-mixed-content;
     upgrade-insecure-requests;`
     };
-`;
+`
 
-  const requestHeaders = new Headers();
-  requestHeaders.set("x-nonce", nonce);
+  const requestHeaders = new Headers()
+  requestHeaders.set('x-nonce', nonce)
   requestHeaders.set(
-    "Content-Security-Policy",
+    'Content-Security-Policy',
     // Replace newline characters and spaces
-    cspHeader.replace(/\s{2,}/g, " ").trim()
-  );
+    cspHeader.replace(/\s{2,}/g, ' ').trim()
+  )
 
   return NextResponse.next({
     headers: requestHeaders,
     request: {
       headers: requestHeaders,
     },
-  });
+  })
 }
